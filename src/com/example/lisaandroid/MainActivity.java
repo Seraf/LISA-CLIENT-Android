@@ -188,17 +188,13 @@ public class MainActivity extends Activity
 			byte[] buffer = new byte[1024];
 			
 			try {
-				 BufferedInputStream in = new BufferedInputStream(nsocket.getInputStream());
-				 int bytesRead=0;
-				 String strStreamContents; 
-				 
-				 while((bytesRead = in.read(buffer)) != -1){ 
-					 strStreamContents = new String(buffer, 0, bytesRead);               
-					 Log.w("RECEIVED 2 : ", strStreamContents);
-				 }
-				 Log.w("RECEIVED 1 : ", buffer.toString());
-
-//				parseAnswer(buffer.toString());
+				BufferedInputStream in = new BufferedInputStream(mInStream);
+				int bytesRead=0;
+				String strStreamContents; 
+				bytesRead = in.read(buffer); 
+				strStreamContents = new String(buffer, 0, bytesRead); 
+				Log.w("RECEIVED 1 : ", strStreamContents);
+				parseAnswer(strStreamContents);
 
 			} catch (IOException e) {
 				e.printStackTrace();
