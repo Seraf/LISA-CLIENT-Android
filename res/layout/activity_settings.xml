@@ -1,0 +1,26 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+     <PreferenceCategory android:title="@string/pref_settings" >
+        <EditTextPreference
+            android:id="@+id/pref_id_ip"
+                 android:title="@string/labelIP"
+                   android:summary="@string/pref_sum_ip"
+                   android:defaultValue="192.168.0.X" 
+            android:key="pref_ipLabel"/>
+        
+        <EditTextPreference
+            android:id="@+id/pref_id_port"
+                android:title="@string/labelPort"
+                android:summary="@string/pref_sum_port"
+                android:defaultValue="10042" 
+                android:key="pref_portLabel" />
+        
+        <EditTextPreference
+            android:id="@+id/pref_id_zone"
+                android:title="@string/labelZone"
+                android:summary="@string/pref_sum_zone"
+                android:defaultValue="" 
+                android:key="pref_zoneLabel" />  
+    </PreferenceCategory>
+
+</PreferenceScreen>
