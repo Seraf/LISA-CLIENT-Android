@@ -13,8 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.gast.speech.activation;
-
+package com.lisa.speech.activation;
 import com.lisa.lisa.R;
 import android.annotation.SuppressLint;
 import android.app.Notification;
@@ -98,20 +97,7 @@ public class SpeechActivationService extends Service implements
             {
                 if (isStarted)
                 {
-                    // the activator is currently started
-                    // if the intent is requesting a new activator
-                    // stop the current activator and start
-                    // the new one
-                    if (isDifferentType(intent))
-                    {
-                        Log.d(TAG, "is differnet type");
-                        stopActivator();
-                        startDetecting(intent);
-                    }
-                    else
-                    {
-                        Log.d(TAG, "already started this type");
-                    }
+                    Log.d(TAG, "already started the activator");
                 }
                 else
                 {
@@ -132,41 +118,11 @@ public class SpeechActivationService extends Service implements
         {
             Log.d(TAG, "null activator");
         }
-            
-        activator = getRequestedActivator(intent);
-        Log.d(TAG, "started: " + activator.getClass().getSimpleName());
+        SpeechActivator activator = new WordActivator(this, this, "Lisa");
+        Log.d(TAG, "started: wordactivator");
         isStarted = true;
         activator.detectActivation();
         startForeground(NOTIFICATION_ID, getNotification(intent));
-    }
-
-    private SpeechActivator getRequestedActivator(Intent intent)
-    {
-        String type = intent.getStringExtra(ACTIVATION_TYPE_INTENT_KEY);
-        // create based on a type name
-        SpeechActivator speechActivator =
-                SpeechActivatorFactory.createSpeechActivator(this, this, type);
-        return speechActivator;
-    }
-
-    /**
-     * determine if the intent contains an activator type 
-     * that is different than the currently running type
-     */
-    private boolean isDifferentType(Intent intent)
-    {
-        boolean different = false;
-        if (activator == null)
-        {
-            return true;
-        }
-        else
-        {
-            SpeechActivator possibleOther = getRequestedActivator(intent);
-            different = !(possibleOther.getClass().getName().
-                    equals(activator.getClass().getName()));
-        }
-        return different;
     }
 
     @Override
@@ -197,7 +153,7 @@ public class SpeechActivationService extends Service implements
     {
         if (activator != null)
         {
-            Log.d(TAG, "stopped: " + activator.getClass().getSimpleName());
+            Log.d(TAG, "stopped: wordactivated");
             activator.stop();
             isStarted = false;
         }
@@ -206,12 +162,10 @@ public class SpeechActivationService extends Service implements
     @SuppressLint("NewApi")
     private Notification getNotification(Intent intent)
     {
-        // determine label based on the class
-        String name = SpeechActivatorFactory.getLabel(this, activator);
-        String message =
-                getString(R.string.speech_activation_notification_listening)
-                        + " " + name;
-        String title = getString(R.string.speech_activation_notification_title);
+    	// determine label based on the class
+        String name = "WordActivator";
+        String message = "Listening for " + name;
+        String title = "Speech Activation";
 
         PendingIntent pi =
                 PendingIntent.getService(this, 0, makeServiceStopIntent(this),

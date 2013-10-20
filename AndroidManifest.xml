@@ -8,6 +8,7 @@
         android:minSdkVersion="14"
         android:targetSdkVersion="17" />
 	<uses-permission android:name="android.permission.INTERNET"/>
+	<uses-permission android:name="android.permission.RECORD_AUDIO" />
     <application
         android:allowBackup="true"
         android:debuggable="true"
@@ -32,6 +33,10 @@
             android:name=".SettingsActivity"
             android:label="@string/app_name" >
         </activity>
+        
+        <service android:name="com.lisa.speech.activation.SpeechActivationService"/>
+        <service android:name="com.lisa.speech.activation.SpeechActivationIntentService"/>
+
     </application>
 
 </manifest>

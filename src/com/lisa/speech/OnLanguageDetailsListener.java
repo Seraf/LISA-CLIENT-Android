@@ -1,5 +1,5 @@
 /*
- * Copyright 2012 Greg Milette and Adam Stroud
+ * Copyright 2011 Greg Milette and Adam Stroud
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,13 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.gast.speech.activation;
+package com.lisa.speech;
+
 
 /**
- * receive results from a {@link SpeechActivator}
  * @author Greg Milette &#60;<a href="mailto:gregorym@gmail.com">gregorym@gmail.com</a>&#62;
  */
-public interface SpeechActivationListener
+public interface OnLanguageDetailsListener
 {
-    public void activated(boolean success);
+    public void onLanguageDetailsReceived(LanguageDetailsChecker data);
 }

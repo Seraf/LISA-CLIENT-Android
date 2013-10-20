@@ -13,13 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.gast.speech.activation;
+package com.lisa.speech.activation;
 
 import java.util.List;
 
-import com.gast.speech.SpeechRecognitionUtil;
-import com.gast.speech.text.WordList;
-import com.gast.speech.text.match.SoundsLikeWordMatcher;
+import com.lisa.speech.SpeechRecognitionUtil;
+import com.lisa.speech.text.WordList;
+import com.lisa.speech.text.match.WordMatcher;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -40,7 +40,7 @@ public class WordActivator implements SpeechActivator, RecognitionListener
 
     private Context context;
     private SpeechRecognizer recognizer;
-    private SoundsLikeWordMatcher matcher;
+    private WordMatcher matcher;
 
     private SpeechActivationListener resultListener;
 
@@ -48,7 +48,7 @@ public class WordActivator implements SpeechActivator, RecognitionListener
             SpeechActivationListener resultListener, String... targetWords)
     {
         this.context = context;
-        this.matcher = new SoundsLikeWordMatcher(targetWords);
+        this.matcher = new WordMatcher(targetWords);
         this.resultListener = resultListener;
     }
 

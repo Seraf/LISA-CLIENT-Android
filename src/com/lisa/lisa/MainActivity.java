@@ -15,6 +15,8 @@ import android.content.Intent;
 
 import android.view.Menu;
 import android.view.MenuItem;
+
+import com.lisa.speech.activation.SpeechActivationService;
 	 
 	public class MainActivity extends Activity
 	{
@@ -29,6 +31,9 @@ import android.view.MenuItem;
 	        super.onCreate(savedInstanceState);
 	        setContentView(R.layout.activity_main);
 	 
+	        Intent i = SpeechActivationService.makeStartServiceIntent(this,"WordActivator");
+	        startService(i);
+	        
 	        arrayList = new ArrayList<String>();
 	 
 	        final EditText editText = (EditText) findViewById(R.id.editText);

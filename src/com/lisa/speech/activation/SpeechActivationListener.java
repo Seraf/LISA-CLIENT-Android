@@ -13,23 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.gast.speech.activation;
-
+package com.lisa.speech.activation;
 
 /**
+ * receive results from a {@link SpeechActivator}
  * @author Greg Milette &#60;<a href="mailto:gregorym@gmail.com">gregorym@gmail.com</a>&#62;
- *
  */
-public interface SpeechActivator
+public interface SpeechActivationListener
 {
-    /**
-     * listen for speech activation, when heard, call a {@link SpeechActivationListener}
-     * and stop listening
-     */
-    public void detectActivation();
-
-    /**
-     * stop waiting for activation.
-     */
-    public void stop();
+    public void activated(boolean success);
 }
