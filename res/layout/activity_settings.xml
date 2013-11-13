@@ -12,7 +12,7 @@
             android:id="@+id/pref_id_port"
                 android:title="@string/labelPort"
                 android:summary="@string/pref_sum_port"
-                android:defaultValue="10042" 
+                android:defaultValue="10042"
                 android:key="pref_portLabel" />
         
         <EditTextPreference

@@ -9,16 +9,12 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.content.Context;
-import android.speech.tts.TextToSpeech;
-import android.speech.tts.TextToSpeech.OnInitListener;
 
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
 
-public class Network implements OnInitListener {
-    private TextToSpeech textToSpeech;
- 
+public class Network {
     private String serverMessage;
     private Context mycontext;
     public static String SERVERIP = "demo.lisa-project.net"; //your computer IP address
@@ -66,7 +62,6 @@ public class Network implements OnInitListener {
     public Network(Context context, OnMessageReceived listener) {
     	mycontext = context;
         mMessageListener = listener;
-        textToSpeech = new TextToSpeech(mycontext, this);
         SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(context);
         Network.setServerport(Integer.valueOf(sharedPrefs.getString("pref_portLabel", "10042")));
         Network.setServerip(sharedPrefs.getString("pref_ipLabel", "demo.lisa-project.net"));
@@ -136,7 +131,6 @@ public class Network implements OnInitListener {
             Socket socket = new Socket(serverAddr, SERVERPORT);
 
             try {
- 
                 //send the message to the server
                 out = new PrintWriter(new BufferedWriter(new OutputStreamWriter(socket.getOutputStream())), true);
  
@@ -153,32 +147,20 @@ public class Network implements OnInitListener {
                         //call the method messageReceived from MyActivity class
                     	String parsedmessage = parseAnswer(serverMessage);
                         mMessageListener.messageReceived(parsedmessage);
-                        convertToSpeech(parsedmessage);
                     }
                     serverMessage = null;
- 
                 }
- 
- 
                 Log.e("RESPONSE FROM SERVER", "Received Message: '" + serverMessage + "'");
- 
- 
             } catch (Exception e) {
- 
                 Log.e("TCP", "Server Error", e);
- 
             } finally {
                 //the socket must be closed. It is not possible to reconnect to this socket
                 // after it is closed, which means a new socket instance has to be created.
                 socket.close();
             }
- 
         } catch (Exception e) {
- 
             Log.e("TCP", "Client Error", e);
- 
         }
- 
     }
  
     //Declare the interface. The method messageReceived(String message) will must be implemented in the MyActivity
@@ -186,25 +168,4 @@ public class Network implements OnInitListener {
     public interface OnMessageReceived {
         public void messageReceived(String message);
     }
- 
-    /**
-     * a callback to be invoked indicating the completion of the TextToSpeech
-     * engine initialization.
-     */
-    @Override
-    public void onInit(int status) {
-      
-    }
- 
-    /**
-     * Speaks the string using the specified queuing strategy and speech parameters.
-     */
-    private void convertToSpeech(String text) {
-        if (null == text || "".equals(text)) {
-            text = "Please give me some input in below text field.";
-        }
-        Log.e("TCP", text);
-        
-        textToSpeech.speak(text, TextToSpeech.QUEUE_ADD, null);
-    }
-}
+ }

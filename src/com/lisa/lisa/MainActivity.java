@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.app.Activity;
 import java.util.ArrayList;
 
+import android.speech.tts.TextToSpeech;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -16,15 +17,34 @@ import android.content.Intent;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import android.speech.tts.TextToSpeech;
+import android.speech.tts.TextToSpeech.OnInitListener;
 import com.lisa.speech.activation.SpeechActivationService;
-	 
-	public class MainActivity extends Activity
+
+import android.widget.Toast;
+
+	public class MainActivity extends Activity implements OnInitListener
 	{
+		public TextToSpeech textToSpeech;
+		private int MY_DATA_CHECK_CODE = 0;
+
 	    private ListView mList;
 	    private ArrayList<String> arrayList;
 	    private MyCustomAdapter mAdapter;
 	    private Network mTcpClient;
-	 
+	    
+	    @Override
+	    public void onInit(int status) {       
+	    	if (status == TextToSpeech.SUCCESS) {
+	    		Toast.makeText(MainActivity.this,
+	    				"Text-To-Speech engine is initialized", Toast.LENGTH_LONG).show();
+	        }
+	        else if (status == TextToSpeech.ERROR) {
+	          	Toast.makeText(MainActivity.this,
+	          			"Error occurred while initializing Text-To-Speech engine", Toast.LENGTH_LONG).show();
+	        }
+	    }
+	    
 	    @Override
 	    public void onCreate(Bundle savedInstanceState)
 	    {
@@ -64,6 +84,10 @@ import com.lisa.speech.activation.SpeechActivationService;
 	                //refresh the list
 	                mAdapter.notifyDataSetChanged();
 	                editText.setText("");
+	                
+                    Intent checkIntent = new Intent();
+                    checkIntent.setAction(TextToSpeech.Engine.ACTION_CHECK_TTS_DATA);
+                    startActivityForResult(checkIntent, MY_DATA_CHECK_CODE);
 	            }
 	        });
 	 
@@ -90,6 +114,22 @@ import com.lisa.speech.activation.SpeechActivationService;
             }
         }
 	    
+        protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        	        if (requestCode == MY_DATA_CHECK_CODE) {
+        	            if (resultCode == TextToSpeech.Engine.CHECK_VOICE_DATA_PASS) {
+        	                // success, create the TTS instance
+        	            	textToSpeech = new TextToSpeech(this, this);
+        	            }
+        	            else {
+        	                // missing data, install it
+        	                Intent installIntent = new Intent();
+        	                installIntent.setAction(TextToSpeech.Engine.ACTION_INSTALL_TTS_DATA);
+        	                startActivity(installIntent);
+        	            }
+        	        }
+        	    }
+
+        
 	    public class connectTask extends AsyncTask<String,String,Network> {
 	 
 	        @Override
@@ -103,6 +143,8 @@ import com.lisa.speech.activation.SpeechActivationService;
 	                    //this method calls the onProgressUpdate
 	                	Log.w("message", message);
 	                    publishProgress(message);
+	                    Log.e("TCP", message);
+	                    textToSpeech.speak(message, TextToSpeech.QUEUE_ADD, null);
 	                }
 	            });
 	            mTcpClient.run();
