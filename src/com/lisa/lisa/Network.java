@@ -77,7 +77,7 @@ public class Network {
 		JSONObject commandJson = new JSONObject();
 
 		try {
-			commandJson.put("type", "Speech");
+			commandJson.put("type", "chat");
 			commandJson.put("body", message);
 			commandJson.put("from", "Android");
 			commandJson.put("zone", Network.getZONE());

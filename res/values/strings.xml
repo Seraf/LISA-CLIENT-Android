@@ -12,6 +12,9 @@
     <string name="pref_sum_ip">Set your IP</string>
     <string name="pref_sum_port">Set your port</string>
     <string name="pref_sum_zone">Set the zone of the client</string>
-    <string name="defaultIP">192.168.0.X</string>
+    <string name="defaultIP">demo.lisa-project.net</string>
     <integer name="defaultPort">10042</integer>
+
+    <string name="send">Send</string>
+    <string name="speak">Speak</string>
 </resources>
