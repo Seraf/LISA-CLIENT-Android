@@ -20,14 +20,11 @@ import android.view.MenuItem;
 
 import android.speech.tts.TextToSpeech;
 import android.speech.tts.TextToSpeech.OnInitListener;
-import com.lisa.speech.activation.SpeechActivationService;
+//import com.lisa.speech.activation.SpeechActivationService;
 
 import android.widget.Toast;
 
-import android.app.Activity;
 import android.content.ActivityNotFoundException;
-import android.content.Intent;
-import android.os.Bundle;
 import android.speech.RecognizerIntent;
 
 	public class MainActivity extends Activity implements OnInitListener
@@ -56,15 +53,15 @@ import android.speech.RecognizerIntent;
 		          	Toast.makeText(MainActivity.this,
 		          			"This Language is not supported", Toast.LENGTH_LONG).show();	    			
 	    		}
-	    		else {
-	    			Toast.makeText(MainActivity.this,
-	    				"Text-To-Speech engine is initialized", Toast.LENGTH_LONG).show();
-	    		}
 	        }
 	        else if (status == TextToSpeech.ERROR) {
 	          	Toast.makeText(MainActivity.this,
 	          			"Error occurred while initializing Text-To-Speech engine", Toast.LENGTH_LONG).show();
 	        }
+	    	
+	    	// connect to the server
+	        new connectTask().execute("");
+	 
 	    }
 	    
 	    @Override
@@ -89,9 +86,6 @@ import android.speech.RecognizerIntent;
 	        mList = (ListView)findViewById(R.id.list);
 	        mAdapter = new MyCustomAdapter(this, arrayList);
 	        mList.setAdapter(mAdapter);
-	 
-	        // connect to the server
-	        new connectTask().execute("");
 	 
 	        send.setOnClickListener(new View.OnClickListener() {
 	            @Override
