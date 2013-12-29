@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- Generated with http://android-holo-colors.com -->
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+
+  <style name="LISA" parent="android:Theme.Holo">
+
+    <item name="android:editTextBackground">@drawable/lisa_edit_text_holo_dark</item>
+
+    <item name="android:textColorHighlight">#9933b5e5</item>
+    <item name="android:textSelectHandleLeft">@drawable/lisa_text_select_handle_left</item>
+    <item name="android:textSelectHandleRight">@drawable/lisa_text_select_handle_right</item>
+    <item name="android:textSelectHandle">@drawable/lisa_text_select_handle_middle</item>
+
+    <item name="android:autoCompleteTextViewStyle">@style/AutoCompleteTextViewLISA</item>
+
+    <item name="android:listChoiceIndicatorMultiple">@drawable/lisa_btn_check_holo_dark</item>
+
+    <item name="android:listChoiceIndicatorSingle">@drawable/lisa_btn_radio_holo_dark</item>
+
+    <item name="android:buttonStyle">@style/ButtonLISA</item>
+
+    <item name="android:imageButtonStyle">@style/ImageButtonLISA</item>
+
+    <item name="android:dropDownSpinnerStyle">@style/SpinnerLISA</item>
+
+    <item name="android:progressBarStyleHorizontal">@style/ProgressBarLISA</item>
+
+    <item name="android:seekBarStyle">@style/SeekBarLISA</item>
+
+    <item name="android:ratingBarStyle">@style/RatingBarLISA</item>
+
+    <item name="android:ratingBarStyleIndicator">@style/RatingBarBigLISA</item>
+
+    <item name="android:ratingBarStyleSmall">@style/RatingBarSmallLISA</item>
+
+    <item name="android:buttonStyleToggle">@style/ToggleLISA</item>
+
+    <item name="android:listChoiceBackgroundIndicator">@drawable/lisa_list_selector_holo_dark</item>
+
+    <item name="android:activatedBackgroundIndicator">@drawable/lisa_activated_background_holo_dark</item>
+
+    <item name="android:fastScrollThumbDrawable">@drawable/lisa_fastscroll_thumb_holo</item>
+
+  </style>
+
+</resources>
